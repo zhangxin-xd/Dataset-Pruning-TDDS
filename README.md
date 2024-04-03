@@ -20,7 +20,7 @@ Use following steps you can reproduce baselines and TDDS on CIFAR10 and CIFAR100
 This step is necessary to collect the training dynamics for subsequential coreset selection.
 
 ```python
-python train.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 128 --task-name all-data --save_path ./checkpoint/all-dataset
+python train.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 128 --dynamics --save_path ./checkpoint/all-dataset
 ```
 ### Sample Importance Evaluation
 ```python
