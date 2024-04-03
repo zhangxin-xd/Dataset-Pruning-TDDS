@@ -16,13 +16,13 @@ Dataset pruning aims to construct a coreset capable of achieving performance com
 ## Usage and Examples
 Use following steps you can reproduce baselines and TDDS on CIFAR10 and CIFAR100. Here we use CIFAR100 as an example, the detailed training setting can be found in our paper.
 
-# Train classifiers on the entire dataset
+### Train classifiers on the entire dataset
 This step is necessary to collect the training dynamics for subsequential coreset selection.
 
 ```python
 python train.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 128 --task-name all-data --save_path ./checkpoint/all-dataset
 ```
-
+### Importance score calculation
 
 
 
