@@ -30,6 +30,8 @@ def load_cifar10(args):
     train_transform = transforms.Compose(
       [transforms.RandomHorizontalFlip(), transforms.RandomCrop(32, padding=4), transforms.ToTensor(),transforms.Normalize(mean, std)])
     train_data = dset.CIFAR10(args.data_path, train=True, transform=train_transform, download=True)
+    target_index = [[train_data.targets[i], i]   for i in range (len(train_data.targets))]
+    train_data.targets = target_index
     train_loader = torch.utils.data.DataLoader(train_data, args.batch_size, shuffle=True,
                                               num_workers=args.workers, pin_memory=True)
     test_transform = transforms.Compose(
@@ -48,6 +50,8 @@ def load_cifar100(args):
     train_transform = transforms.Compose(
       [transforms.RandomHorizontalFlip(), transforms.RandomCrop(32, padding=4), transforms.ToTensor(),transforms.Normalize(mean, std)])
     train_data = dset.CIFAR100(args.data_path, train=True, transform=train_transform, download=True)
+    target_index = [[train_data.targets[i], i]   for i in range (len(train_data.targets))]
+    train_data.targets = target_index
     train_loader = torch.utils.data.DataLoader(train_data, args.batch_size, shuffle=True,
                                               num_workers=args.workers, pin_memory=True)
     test_transform = transforms.Compose(
