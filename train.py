@@ -24,10 +24,11 @@ parser.add_argument('--learning_rate', type=float, default=0.1, help='The Learni
 parser.add_argument('--momentum', type=float, default=0.9, help='Momentum.')
 parser.add_argument('--decay', type=float, default=0.0005, help='Weight decay (L2 penalty).')
 
-# Checkpoints
+# Checkpoints and Dynamics
 parser.add_argument('--print_freq', default=200, type=int, metavar='N', help='print frequency (default: 200)')
 parser.add_argument('--save_path', type=str, default='./checkpoint/all-dataset', help='Folder to save checkpoints and log.')
 parser.add_argument('--evaluate', dest='evaluate', action='store_true',default= False, help='evaluate model on validation set')
+parser.add_argument('--dynamics', action='store_true',default= False, help='evaluate model on validation set')
 # Acceleration
 parser.add_argument('--ngpu', type=int, default=1, help='0 = CPU.')
 parser.add_argument('--workers', type=int, default=2, help='number of data loading workers (default: 2)')
@@ -121,7 +122,7 @@ def main():
                                                                100 - recorder.max_accuracy(False)), log)
 
         # train for one epoch
-        train_acc, train_los = train(train_loader, args, net, criterion, optimizer, scheduler, epoch, log)
+        train_acc, train_los, loss_epoch, output_epoch, index_epoch = train(train_loader, args, net, criterion, optimizer, scheduler, epoch, log)
 
         # evaluate on validation set
         val_acc, val_los = validate(test_loader, args, net, criterion, log)
@@ -140,6 +141,16 @@ def main():
         epoch_time.update(time.time() - start_time)
         start_time = time.time()
         recorder.plot_curve(os.path.join(args.save_path, 'curve.png'))
+        # save training dynamics
+        if args.dynamics:
+            dynamics_path = args.save_path+'/npy/'
+        if not os.path.exists(dynamics_path):
+            os.makedirs(dynamics_path)
+        else:
+            np.save(args.save_path+'/npy/'+ str(epoch) + '_Loss.npy', loss_epoch)
+            np.save(args.save_path+'/npy/'+ str(epoch) + '_Output.npy', output_epoch)
+            np.save(args.save_path+'/npy/'+ str(epoch) + '_Index.npy', index_epoch)
+            print('Epoch'+str(epoch)+'done!')
     log.close()
 
 
@@ -156,15 +167,26 @@ def train(train_loader, args, model, criterion, optimizer, scheduler, epoch, log
     
     for t, (input, target) in enumerate(train_loader):
         if args.use_cuda:
-            y = target.cuda()
+            y = target[0].cuda()
             x = input.cuda()
+            index = target[1]
         
         input_var = torch.autograd.Variable(x)
         target_var = torch.autograd.Variable(y)
         # compute output
         output = model(input_var)
         loss = criterion(output, target_var)
-
+        # record training dynamics
+        loss_batch = torch.nn.functional.cross_entropy(output, target_var, reduce=False).detach().cpu()
+        index_batch = index
+        if t==0:
+            loss_epoch = np.array(loss_batch)
+            output_epoch = np.array(output.detach().cpu())
+            index_epoch = np.array(index_batch)
+        else:
+            loss_epoch = np.concatenate((loss_epoch, np.array(loss_batch)), axis = 0)
+            output_epoch = np.concatenate((output_epoch, np.array(output.detach().cpu())), axis = 0)
+            index_epoch = np.concatenate((index_epoch, np.array(index_batch)), axis = 0)
         # measure accuracy and record loss
         prec1, prec5 = accuracy(output.data, y, topk=(1, 5))
         losses.update(loss.item(), len(y))
@@ -194,7 +216,7 @@ def train(train_loader, args, model, criterion, optimizer, scheduler, epoch, log
     print_log(
         '  **Train** Prec@1 {top1.avg:.3f} Prec@5 {top5.avg:.3f} Error@1 {error1:.3f}'.format(top1=top1, top5=top5,
                                                                                               error1=100 - top1.avg), log)
-    return top1.avg, losses.avg
+    return top1.avg, losses.avg, loss_epoch, output_epoch, index_epoch
 
 
 def validate(test_loader, args, model, criterion, log): 
