@@ -1,6 +1,6 @@
 # 📍 Dataset-Pruning-TDDS 
 
-Official PyTorch implementation of paper (CVPR 2024) 
+Official PyTorch implementation of paper **(CVPR 2024)** 
 >["Spanning Training Progress: Temporal Dual-Depth Scoring (TDDS) for Enhanced Dataset Pruning"](https://arxiv.org/abs/2311.13613)<br>
 >[Xin Zhang](https://scholar.google.com/citations?view_op=list_works&hl=zh-CN&user=rJMMViQAAAAJ), [Jiawei Du](https://scholar.google.com/citations?user=WrJKEzEAAAAJ&hl=zh-CN), [Yunsong Li](https://ieeexplore.ieee.org/author/37292407800), [Weiying Xie](https://scholar.google.com/citations?user=y0ha5lMAAAAJ&hl=zh-CN), [Joey Tianyi Zhou](https://joeyzhouty.github.io/) <br>
 >XDU, A*Star
