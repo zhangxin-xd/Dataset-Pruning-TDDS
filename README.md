@@ -22,6 +22,9 @@ This step is necessary to collect the training dynamics for subsequential corese
 ```python
 python train.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 128 --dynamics --save_path ./checkpoint/all-dataset
 ```
+
+After completing training, you will obtain three .npy files for each epoch under path "./checkpoint/all-dataset". 
+
 ### Sample Importance Evaluation
 ```python
 
