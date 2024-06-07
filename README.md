@@ -37,6 +37,7 @@ python importance_evaluation.py --dynamics_path ./checkpoint/all-dataset/npy/ --
 ```
 
 After the computation, you will obtain two `.npy` files storing sorted sample indexes and their respective importance scores.
+### Train Classifiers on the Pruned Dataset
 
 
 
