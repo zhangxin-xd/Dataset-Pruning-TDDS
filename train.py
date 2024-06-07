@@ -145,11 +145,10 @@ def main():
             dynamics_path = args.save_path+'/npy/'
             if not os.path.exists(dynamics_path):
                 os.makedirs(dynamics_path)
-            else:
-                np.save(args.save_path+'/npy/'+ str(epoch) + '_Loss.npy', loss_epoch)
-                np.save(args.save_path+'/npy/'+ str(epoch) + '_Output.npy', output_epoch)
-                np.save(args.save_path+'/npy/'+ str(epoch) + '_Index.npy', index_epoch)
-                print('Epoch '+str(epoch)+' done!')
+            np.save(args.save_path+'/npy/'+ str(epoch) + '_Loss.npy', loss_epoch)
+            np.save(args.save_path+'/npy/'+ str(epoch) + '_Output.npy', output_epoch)
+            np.save(args.save_path+'/npy/'+ str(epoch) + '_Index.npy', index_epoch)
+            print('Epoch '+str(epoch)+' done!')
     log.close()
 
 
