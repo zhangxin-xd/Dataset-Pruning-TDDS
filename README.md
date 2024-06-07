@@ -38,7 +38,9 @@ python importance_evaluation.py --dynamics_path ./checkpoint/all-dataset/npy/ --
 
 After the computation, you will obtain two `.npy` files storing sorted sample indexes and their respective importance scores.
 
-The implementation on ImageNet-1K dataset is based on the [timm](https://github.com/huggingface/pytorch-image-models)
+
+
+For the implementation of ImageNet-1K dataset please refer [timm](https://github.com/huggingface/pytorch-image-models).
 
 If you have any questions, please feel free to connect with me! 🤗
 ## 🙋🏻‍♀️ Citation
