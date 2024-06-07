@@ -27,7 +27,7 @@ parser.add_argument('--decay', type=float, default=0.0005, help='Weight decay (L
 parser.add_argument('--print_freq', default=200, type=int, metavar='N', help='print frequency (default: 200)')
 parser.add_argument('--save_path', type=str, default='./checkpoint/all-dataset', help='Folder to save checkpoints and log.')
 parser.add_argument('--evaluate', dest='evaluate', action='store_true',default= False, help='evaluate model on validation set')
-parser.add_argument('--dynamics', action='store_true', help='evaluate model on validation set')
+parser.add_argument('--dynamics', action='store_true', help='save training dynamics')
 # Acceleration
 parser.add_argument('--ngpu', type=int, default=1, help='0 = CPU.')
 parser.add_argument('--workers', type=int, default=2, help='number of data loading workers (default: 2)')
