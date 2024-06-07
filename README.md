@@ -26,7 +26,7 @@ Readers do not need to replicate our setup exactly.
 This step is necessary to collect the training dynamics for subsequential coreset selection.
 
 ```python
-python train.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 128 --dynamics --save_path ./checkpoint/all-dataset
+python train.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 100 --dynamics --save_path ./checkpoint/all-dataset
 ```
 
 After completing training, you will obtain three `.npy` files for each epoch under the path `./checkpoint/all-dataset`.
