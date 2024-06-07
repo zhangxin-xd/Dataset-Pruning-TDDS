@@ -1,4 +1,3 @@
-from __future__ import division
 import os, sys, shutil, time, random
 import argparse
 import torch
@@ -19,7 +18,7 @@ parser.add_argument('--dataset', type=str, default='cifar100',choices=['cifar10'
 parser.add_argument('--arch', type=str, default='resnet18')
 # Optimization options
 parser.add_argument('--epochs', type=int, default=200, help='Number of epochs to train.')
-parser.add_argument('--batch_size', type=int, default=128, help='Batch size.')
+parser.add_argument('--batch-size', type=int, default=128, help='Batch size.')
 parser.add_argument('--learning_rate', type=float, default=0.1, help='The Learning Rate.')
 parser.add_argument('--momentum', type=float, default=0.9, help='Momentum.')
 parser.add_argument('--decay', type=float, default=0.0005, help='Weight decay (L2 penalty).')
@@ -28,7 +27,7 @@ parser.add_argument('--decay', type=float, default=0.0005, help='Weight decay (L
 parser.add_argument('--print_freq', default=200, type=int, metavar='N', help='print frequency (default: 200)')
 parser.add_argument('--save_path', type=str, default='./checkpoint/all-dataset', help='Folder to save checkpoints and log.')
 parser.add_argument('--evaluate', dest='evaluate', action='store_true',default= False, help='evaluate model on validation set')
-parser.add_argument('--dynamics', action='store_true',default= False, help='evaluate model on validation set')
+parser.add_argument('--dynamics', action='store_true', help='evaluate model on validation set')
 # Acceleration
 parser.add_argument('--ngpu', type=int, default=1, help='0 = CPU.')
 parser.add_argument('--workers', type=int, default=2, help='number of data loading workers (default: 2)')
@@ -69,7 +68,7 @@ def main():
 
     # data loading 
     train_loader, test_loader = load_data(args)
-    if args.dataset == 'cifar100':
+    if args.dataset == 'cifar10':
         args.num_classes = 10
         args.num_samples = 50000
         args.num_iter = args.num_samples/args.batch_size
@@ -96,7 +95,7 @@ def main():
         criterion.cuda()
 
     recorder = RecorderMeter(args.epochs)
-    
+    # evaluation
     if args.evaluate:
         time1 = time.time()
         validate(test_loader, args, net, criterion, log) #
@@ -144,13 +143,13 @@ def main():
         # save training dynamics
         if args.dynamics:
             dynamics_path = args.save_path+'/npy/'
-        if not os.path.exists(dynamics_path):
-            os.makedirs(dynamics_path)
-        else:
-            np.save(args.save_path+'/npy/'+ str(epoch) + '_Loss.npy', loss_epoch)
-            np.save(args.save_path+'/npy/'+ str(epoch) + '_Output.npy', output_epoch)
-            np.save(args.save_path+'/npy/'+ str(epoch) + '_Index.npy', index_epoch)
-            print('Epoch'+str(epoch)+'done!')
+            if not os.path.exists(dynamics_path):
+                os.makedirs(dynamics_path)
+            else:
+                np.save(args.save_path+'/npy/'+ str(epoch) + '_Loss.npy', loss_epoch)
+                np.save(args.save_path+'/npy/'+ str(epoch) + '_Output.npy', output_epoch)
+                np.save(args.save_path+'/npy/'+ str(epoch) + '_Index.npy', index_epoch)
+                print('Epoch '+str(epoch)+' done!')
     log.close()
 
 
