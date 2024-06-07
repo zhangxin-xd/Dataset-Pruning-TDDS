@@ -38,7 +38,9 @@ python importance_evaluation.py --dynamics_path ./checkpoint/all-dataset/npy/ --
 
 After the computation, you will obtain two `.npy` files storing sorted sample indexes and their respective importance scores.
 ### Train Classifiers on the Pruned Dataset
-
+```python
+python train_subset.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 120 --dynamics --save_path ./checkpoint/all-dataset
+```
 
 
 For the implementation of ImageNet-1K dataset please refer [timm](https://github.com/huggingface/pytorch-image-models).
