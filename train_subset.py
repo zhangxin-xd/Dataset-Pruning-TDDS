@@ -7,7 +7,7 @@ from models import resnet
 import numpy as np
 from data_subset import load_data
 ########################################################################################################################
-#  Training Baseline
+#  Training Subset
 ########################################################################################################################
 
 parser = argparse.ArgumentParser(description='Trains ResNet on CIFAR',
