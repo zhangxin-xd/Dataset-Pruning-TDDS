@@ -21,6 +21,7 @@ We conduct our experiments on 3090 GPUs in an environment configured as follows:
 - PyTorch version: 2.2.1+cu121
 - cuDNN version: 8902
 
+Readers do not need to replicate our setup exactly.
 ### Train Classifiers on the Entire Dataset
 This step is necessary to collect the training dynamics for subsequential coreset selection.
 
