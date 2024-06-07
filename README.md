@@ -1,6 +1,6 @@
 # 📍 Dataset-Pruning-TDDS 
 
-Official PyTorch implementation of paper **(CVPR 2024)** 
+Official PyTorch implementation of paper **(CVPR 2024)** 🤩
 >["Spanning Training Progress: Temporal Dual-Depth Scoring (TDDS) for Enhanced Dataset Pruning"](https://arxiv.org/abs/2311.13613)<br>
 >[Xin Zhang](https://scholar.google.com/citations?view_op=list_works&hl=zh-CN&user=rJMMViQAAAAJ), [Jiawei Du](https://scholar.google.com/citations?user=WrJKEzEAAAAJ&hl=zh-CN), [Yunsong Li](https://ieeexplore.ieee.org/author/37292407800), [Weiying Xie](https://scholar.google.com/citations?user=y0ha5lMAAAAJ&hl=zh-CN), [Joey Tianyi Zhou](https://joeyzhouty.github.io/) <br>
 >XDU, A*Star
@@ -15,14 +15,14 @@ Dataset pruning aims to construct a coreset capable of achieving performance com
 
 ## 👩🏻‍💻 Usage and Examples
 Use following steps you can reproduce baselines and TDDS on CIFAR10 and CIFAR100. Here we use CIFAR100 as an example, the detailed training setting can be found in our paper.
-### Environment
+### Environment 🌏
 We conduct our experiments on 3090 GPUs in an environment configured as follows:
 - Python version: 3.9.18
 - PyTorch version: 2.2.1+cu121
 - cuDNN version: 8902
 
 Readers do not need to replicate our setup exactly.
-### Train Classifiers on the Entire Dataset
+### Train Classifiers on the Entire Dataset 🏃🏻‍♀️
 This step is necessary to collect the training dynamics for subsequential coreset selection.
 
 ```python
