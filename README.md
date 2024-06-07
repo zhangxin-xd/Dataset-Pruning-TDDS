@@ -33,8 +33,10 @@ After completing training, you will obtain three `.npy` files for each epoch und
 
 ### Sample Importance Evaluation
 ```python
-
+python importance_evaluation.py --dynamics_path ./checkpoint/all-dataset/npy/ --mask_path ./checkpoint/generated_mask/ --trajectory_len 30 --window_size 10 --decay 0.9
 ```
+
+After the computation, you will obtain two `.npy` files storing sorted sample indexes and their respective importance scores.
 
 The implementation on ImageNet-1K dataset is based on the [timm](https://github.com/huggingface/pytorch-image-models)
 
