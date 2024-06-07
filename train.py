@@ -18,7 +18,7 @@ parser.add_argument('--dataset', type=str, default='cifar100',choices=['cifar10'
 parser.add_argument('--arch', type=str, default='resnet18')
 # Optimization options
 parser.add_argument('--epochs', type=int, default=200, help='Number of epochs to train.')
-parser.add_argument('--batch-size', type=int, default=128, help='Batch size.')
+parser.add_argument('--batch-size', type=int, default=100, help='Batch size.')
 parser.add_argument('--learning_rate', type=float, default=0.1, help='The Learning Rate.')
 parser.add_argument('--momentum', type=float, default=0.9, help='Momentum.')
 parser.add_argument('--decay', type=float, default=0.0005, help='Weight decay (L2 penalty).')
