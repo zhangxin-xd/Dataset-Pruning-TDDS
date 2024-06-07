@@ -31,13 +31,13 @@ python train.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 2
 
 After completing training, you will obtain three `.npy` files for each epoch under the path `./checkpoint/all-dataset`.
 
-### Sample Importance Evaluation
+### Sample Importance Evaluation 🧮
 ```python
 python importance_evaluation.py --dynamics_path ./checkpoint/all-dataset/npy/ --mask_path ./checkpoint/generated_mask/ --trajectory_len 30 --window_size 10 --decay 0.9
 ```
 
 After the computation, you will obtain two `.npy` files storing sorted sample indexes and their respective importance scores.
-### Train Classifiers on the Pruned Dataset
+### Train Classifiers on the Pruned Dataset 🏃🏻‍♀️
 ```python
 python train_subset.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 120 --dynamics --save_path ./checkpoint/pruned-dataset --subset_rate 0.9 --mask_path ./checkpoint/generated_mask/data_mask_winxx_epxx.npy --score_path ./checkpoint/generated_mask/score_winxx_epxx.npy
 ```
