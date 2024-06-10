@@ -5,7 +5,7 @@ import torch.backends.cudnn as cudnn
 from utils import AverageMeter, RecorderMeter, time_string, convert_secs2time
 from models import resnet
 import numpy as np
-from data_subset import load_data
+from data_subset import load_cifar100_sub, load_cifar10_sub
 ########################################################################################################################
 #  Training Subset
 ########################################################################################################################
@@ -74,16 +74,20 @@ def main():
     # data loading 
     data_mask = np.load(args.mask_path)
     sorted_score = np.load(args.score_path) 
-    train_loader, test_loader = load_data(args, data_mask, sorted_score)
-
+   
     if args.dataset == 'cifar10':
         args.num_classes = 10
         args.num_samples = 50000
         args.num_iter = args.num_samples/args.batch_size
-    if args.dataset == 'cifar100':
+        train_loader, test_loader = load_cifar10_sub(args, data_mask, sorted_score)
+
+    elif args.dataset == 'cifar100':
         args.num_classes = 100
         args.num_samples = 50000
         args.num_iter = args.num_samples/args.batch_size
+        train_loader, test_loader = load_cifar100_sub(args, data_mask, sorted_score)
+    else:
+        raise NotImplementedError("Unsupported dataset type")
     print_log("=> creating model '{}'".format(args.arch), log)
     # Init model, criterion, and optimizer
     net = resnet.__dict__[args.arch](num_class = args.num_classes)
@@ -129,7 +133,7 @@ def main():
                                                                100 - recorder.max_accuracy(False)), log)
 
         # train for one epoch
-        train_acc, train_los, loss_epoch, output_epoch, index_epoch = train(train_loader, args, net, criterion, optimizer, scheduler, epoch, log)
+        train_acc, train_los = train(train_loader, args, net, criterion, optimizer, scheduler, epoch, log)
 
         # evaluate on validation set
         val_acc, val_los = validate(test_loader, args, net, criterion, log)
@@ -204,7 +208,7 @@ def train(train_loader, args, model, criterion, optimizer, scheduler, epoch, log
     print_log(
         '  **Train** Prec@1 {top1.avg:.3f} Prec@5 {top5.avg:.3f} Error@1 {error1:.3f}'.format(top1=top1, top5=top5,
                                                                                               error1=100 - top1.avg), log)
-    return top1.avg, losses.avg, loss_epoch, output_epoch, index_epoch
+    return top1.avg, losses.avg
 
 
 def validate(test_loader, args, model, criterion, log): 
