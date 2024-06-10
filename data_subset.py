@@ -13,25 +13,6 @@ from torch.nn.parameter import Parameter
 #  Load Data
 ########################################################################################################################
 
-def load_data(args):
-    """
-    Load data based on specified dataset type.
-    """
-    train_loader, test_loader = load_dataset(args)  # Load raw data
-    return train_loader, test_loader
-
-def load_dataset(args):
-    """
-    Select and load CIFAR10 or CIFAR100 dataset based on args.
-    """
-    if args.dataset == 'cifar10':
-        train_loader, test_loader = load_cifar10_sub(args)
-    elif args.dataset == 'cifar100':
-        train_loader, test_loader = load_cifar100_sub(args)
-    else:
-        raise NotImplementedError("Unsupported dataset type")
-    return train_loader, test_loader
-
 def load_cifar10_sub(args, data_mask, sorted_score):
     """
     Load CIFAR10 dataset with specified transformations and subset selection.
