@@ -39,7 +39,7 @@ python importance_evaluation.py --dynamics_path ./checkpoint/all-dataset/npy/ --
 After the computation, you will obtain two `.npy` files storing sorted sample indexes and their respective importance scores.
 ### Train Classifiers on the Pruned Dataset 🏃🏻‍♀️
 ```python
-python train_subset.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 120 --save_path ./checkpoint/pruned-dataset --subset_rate 0.9 --mask_path ./checkpoint/generated_mask/data_mask_winxx_epxx.npy --score_path ./checkpoint/generated_mask/score_winxx_epxx.npy
+python train_subset.py --data_path ./data --dataset cifar100 --arch resnet18 --epochs 200 --learning_rate 0.1 --batch-size 128 --save_path ./checkpoint/pruned-dataset --subset_rate 0.9 --mask_path ./checkpoint/generated_mask/data_mask_winxx_epxx.npy --score_path ./checkpoint/generated_mask/score_winxx_epxx.npy
 ```
 *For an aggressive pruning rate, setting a smaller batch size will lead to better performance.
 
