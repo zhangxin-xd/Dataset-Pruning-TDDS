@@ -48,7 +48,7 @@ For the implementation of ImageNet-1K dataset please refer [timm](https://github
 If you have any questions, please feel free to connect with me! 🤗
 ## 🙋🏻‍♀️ Citation
 
-If you find our code useful for your research, please cite our paper. 🤭
+If you find our codes useful for your research, please cite our paper. 🤭
 
 ```
 @inproceedings{zhang2024TDDS,
