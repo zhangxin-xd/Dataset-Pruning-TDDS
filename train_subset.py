@@ -5,6 +5,7 @@ import torch.backends.cudnn as cudnn
 from utils import AverageMeter, RecorderMeter, time_string, convert_secs2time
 from models import resnet
 import numpy as np
+import math
 from data_subset import load_cifar100_sub, load_cifar10_sub
 ########################################################################################################################
 #  Training Subset
@@ -77,14 +78,14 @@ def main():
    
     if args.dataset == 'cifar10':
         args.num_classes = 10
-        args.num_samples = 50000
-        args.num_iter = args.num_samples/args.batch_size
+        args.num_samples = 50000*(1-args.subset_rate)
+        args.num_iter = math.ceil(args.num_samples/args.batch_size)
         train_loader, test_loader = load_cifar10_sub(args, data_mask, sorted_score)
 
     elif args.dataset == 'cifar100':
         args.num_classes = 100
-        args.num_samples = 50000
-        args.num_iter = args.num_samples/args.batch_size
+        args.num_samples = 50000*(1-args.subset_rate)
+        args.num_iter = math.ceil(args.num_samples/args.batch_size)
         train_loader, test_loader = load_cifar100_sub(args, data_mask, sorted_score)
     else:
         raise NotImplementedError("Unsupported dataset type")
