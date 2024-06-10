@@ -148,15 +148,6 @@ def main():
         epoch_time.update(time.time() - start_time)
         start_time = time.time()
         recorder.plot_curve(os.path.join(args.save_path, 'curve.png'))
-        # save training dynamics
-        if args.dynamics:
-            dynamics_path = args.save_path+'/npy/'
-            if not os.path.exists(dynamics_path):
-                os.makedirs(dynamics_path)
-            np.save(args.save_path+'/npy/'+ str(epoch) + '_Loss.npy', loss_epoch)
-            np.save(args.save_path+'/npy/'+ str(epoch) + '_Output.npy', output_epoch)
-            np.save(args.save_path+'/npy/'+ str(epoch) + '_Index.npy', index_epoch)
-            print('Epoch '+str(epoch)+' done!')
     log.close()
 
 
